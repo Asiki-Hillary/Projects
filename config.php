@@ -5,14 +5,15 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 try {
-    $pdo = new PDO('mysql:host=dhrsea.h.filess.io;dbname=hardware_inventory_db_thumbcard;charset=utf8mb4', 'hardware_inventory_db_thumbcard', '', [
+    $pdo = new PDO('mysql:host=dhrsea.h.filess.io;port=3305;dbname=hardware_inventory_db_thumbcard;
+    charset=utf8mb4', 'hardware_inventory_db_thumbcard', '32ab259802ba295598241010f17085994939268f', [
         PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES=>false
     ]);
 } catch (PDOException $e) {
     http_response_code(500);
-    exit('Database connection failed. Start MySQL in XAMPP and import database.sql.');
+    exit('Database connection failed: ' . $e->getMessage());
 }
 function h($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); }
 function login_required(): void {
@@ -48,7 +49,8 @@ function nav(): void {
     echo '<a href="logout.php">Logout</a></nav>';
 }
 function page_header(string $title): void {
-    echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>'.h($title).' | William Hardware</title><link rel="stylesheet" href="style.css"></head><body><header>William Hardware Shop <small>'.h($_SESSION['username'] ?? '').' · '.h(ucfirst($_SESSION['role'] ?? '')).'</small></header>';
+    echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>'.h($title).'
+    | William Hardware</title><link rel="stylesheet" href="style.css"></head><body><header>William Hardware Shop <small>'.h($_SESSION['username'] ?? '').' · '.h(ucfirst($_SESSION['role'] ?? '')).'</small></header>';
     nav(); echo '<main><h2>'.h($title).'</h2>';
 }
 function page_footer(): void { echo '</main><footer>William Hardware Shop · Inventory Management Information System</footer></body></html>'; }
@@ -59,4 +61,3 @@ function flash(string $message='', string $type='success'): void {
         echo '<p class="notice '.h($t).'">'.h($m).'</p>';
     }
 }
-function positive_int($value): int { $n=filter_var($value,FILTER_VALIDATE_INT); return ($n!==false && $n>0)?$n:0; }
