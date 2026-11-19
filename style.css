@@ -1,0 +1,62 @@
+/* ===== William Hardware HIMIS - unified navy blue theme =====
+   Change the colours below and every page updates together. */
+:root{
+  --navy:#0b2a55;        /* main brand navy: headers, buttons, table headings */
+  --navy-dark:#071d3d;   /* hover / pressed state */
+  --navy-mid:#163e75;    /* navigation bar */
+  --navy-tint:#e6edf7;   /* light navy tint: table headings, row hover */
+  --bg:#f3f6fb;          /* page background */
+  --text:#1f2d3d;
+  --muted:#5f6f82;
+  --border:#c9d4e3;
+  --border-soft:#dce4ef;
+}
+*{box-sizing:border-box}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:var(--text)}
+header{background:var(--navy);color:#fff;padding:20px 5%;font-size:22px;font-weight:700}
+header small{float:right;font-size:13px;font-weight:400;margin-top:5px}
+nav{background:var(--navy-mid);padding:13px 5%;display:flex;gap:18px;flex-wrap:wrap}
+nav a{color:#fff;text-decoration:none;font-size:14px}
+nav a:hover{text-decoration:underline}
+main{max-width:1180px;margin:26px auto;padding:0 18px;min-height:65vh}
+h2{margin-top:0;color:var(--navy)}
+h3{color:var(--navy)}
+.welcome,.panel{background:#fff;padding:18px;border-radius:9px;margin:15px 0;box-shadow:0 2px 9px rgba(11,42,85,.09)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:14px}
+.metric{border-left:5px solid var(--navy)}
+.metric h2{font-size:25px;color:var(--navy);margin:0 0 8px}
+.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0 16px}
+label{display:block;font-size:14px;font-weight:600;margin:8px 0}
+input,select{display:block;width:100%;padding:11px;margin:7px 0 12px;border:1px solid var(--border);border-radius:5px;background:#fff;font:inherit}
+input:focus,select:focus{outline:2px solid var(--navy-mid);outline-offset:0;border-color:var(--navy-mid)}
+button{background:var(--navy);color:#fff;border:0;padding:11px 18px;border-radius:5px;cursor:pointer;font-weight:600}
+button:hover{background:var(--navy-dark)}
+.table-wrap{overflow-x:auto;margin:12px 0 25px}
+table{width:100%;border-collapse:collapse;background:#fff;min-width:600px}
+td,th{border:1px solid var(--border-soft);padding:10px;text-align:left;font-size:14px}
+th{background:var(--navy-tint);color:var(--navy)}
+tr:hover td{background:#f5f8fc}
+/* status messages keep their own colours so success / error / warning stay recognisable */
+.notice{padding:12px 14px;background:#e7f5ec;border-left:4px solid #23834e;border-radius:4px}
+.notice.error{background:#fff0ef;border-color:#bb382e}
+.notice.notice{background:#fff7df;border-color:#c58a18}
+.muted{color:var(--muted);font-size:13px}
+.login{min-height:100vh;display:grid;place-items:center;padding:18px;background:var(--navy)}
+.loginbox{width:min(440px,96vw);padding:28px}
+.loginbox h1{font-size:24px;margin:0;color:var(--navy)}
+.loginbox button{width:100%}
+.inlineform{display:flex;gap:6px;min-width:240px}
+.inlineform input{margin:0;min-width:120px}
+.inlineform button{white-space:nowrap}
+footer{text-align:center;color:var(--muted);padding:20px;font-size:12px}
+@media(max-width:600px){header{font-size:18px}header small{display:block;float:none;margin-top:8px}nav{gap:12px}.inlineform{flex-direction:column}}
+
+/* ---- Edit / Delete action buttons ---- */
+.actions-cell{white-space:nowrap}
+form.inline{display:inline}
+a.btn,button.danger{display:inline-block;padding:6px 12px;border-radius:5px;font-size:13px;font-weight:600;text-decoration:none;border:0;cursor:pointer}
+a.btn{background:var(--navy);color:#fff}
+a.btn:hover{background:var(--navy-dark)}
+a.btn.secondary{background:#e3e8ef;color:var(--text);padding:11px 18px}
+button.danger{background:#bb382e;color:#fff}
+button.danger:hover{background:#8f2820}
