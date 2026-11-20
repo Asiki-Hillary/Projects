@@ -5,19 +5,14 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 try {
-    $pdo = new PDO(
-        'mysql:host=dhrsea.h.filess.io;port=3305;dbname=hardware_inventory_db_thumbcard;charset=utf8mb4',
-        'hardware_inventory_db_thumbcard',
-        $dbPass = $_ENV['DB_PASS'] ?? $_SERVER['DB_PASS'] ?? getenv('DB_PASS') ?: '',
-        [
-            PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES=>false
-        ]
-    );
+    $pdo = new PDO('mysql:host=dhrsea.h.filess.io;port=3305;dbname=hardware_inventory_db_thumbcard;charset=utf8mb4', 'hardware_inventory_db_thumbcard', '32ab259802ba295598241010f17085994939268f', [
+        PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES=>false
+    ]);
 } catch (PDOException $e) {
     http_response_code(500);
-    exit('Database connection failed. Please try again later.');
+    exit('Database connection failed: ' . $e->getMessage());
 }
 function h($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); }
 function login_required(): void {
