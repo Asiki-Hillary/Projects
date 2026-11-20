@@ -6,17 +6,19 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 try {
     $pdo = new PDO(
-    'mysql:host=dhrsea.h.filess.io;port=3305;dbname=hardware_inventory_db_thumbcard;charset=utf8mb4',
-    'hardware_inventory_db_thumbcard',
-    getenv('DB_PASS') ?:,
- [
-        PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES=>false
-    ]);
+        'mysql:host=dhrsea.h.filess.io;port=3305;dbname=hardware_inventory_db_thumbcard;charset=utf8mb4',
+        'hardware_inventory_db_thumbcard',
+        getenv('DB_PASS') ?: '',
+        [
+            PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES=>false
+        ]
+    );
 } catch (PDOException $e) {
     http_response_code(500);
- exit('Database connection failed. Please try again later.');}
+    exit('Database connection failed. Please try again later.');
+}
 function h($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); }
 function login_required(): void {
     if (empty($_SESSION['user_id'])) { header('Location: login.php'); exit; }
@@ -51,8 +53,7 @@ function nav(): void {
     echo '<a href="logout.php">Logout</a></nav>';
 }
 function page_header(string $title): void {
-    echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>'.h($title).'
-    | William Hardware</title><link rel="stylesheet" href="style.css"></head><body><header>William Hardware Shop <small>'.h($_SESSION['username'] ?? '').' · '.h(ucfirst($_SESSION['role'] ?? '')).'</small></header>';
+    echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>'.h($title).' | William Hardware</title><link rel="stylesheet" href="style.css"></head><body><header>William Hardware Shop <small>'.h($_SESSION['username'] ?? '').' · '.h(ucfirst($_SESSION['role'] ?? '')).'</small></header>';
     nav(); echo '<main><h2>'.h($title).'</h2>';
 }
 function page_footer(): void { echo '</main><footer>William Hardware Shop · Inventory Management Information System</footer></body></html>'; }
