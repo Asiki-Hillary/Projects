@@ -15,6 +15,15 @@ try {
     exit('Database connection failed: ' . $e->getMessage());
 }
 function h($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8');
+function positive_int($v): int {
+    $n = filter_var($v, FILTER_VALIDATE_INT);
+    return ($n !== false && $n > 0) ? $n : 0;
+}
+function positive_float($v): float {
+    $n = filter_var($v, FILTER_VALIDATE_FLOAT);
+    return ($n !== false && $n > 0) ? (float)$n : 0.0;
+}
+
                     
 }
 function login_required(): void {
