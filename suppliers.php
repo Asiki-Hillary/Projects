@@ -1,5 +1,5 @@
 <?php
-require 'config.php'; roles(['admin','procurement']); verify_csrf();
+require_once 'config.php'; roles(['admin','procurement']); verify_csrf();
 
 function done(string $m, string $t='success'): void { $_SESSION['flash']=[$m,$t]; header('Location: suppliers.php'); exit; }
 
