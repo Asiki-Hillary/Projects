@@ -1,5 +1,5 @@
 <?php
-require 'config.php'; roles(['admin','storekeeper']); verify_csrf();
+require_once 'config.php'; roles(['admin','storekeeper']); verify_csrf();
 
 /* Save a message and redirect so a page refresh never re-submits the form */
 function done(string $m, string $t='success'): void { $_SESSION['flash']=[$m,$t]; header('Location: products.php'); exit; }
