@@ -1,6 +1,5 @@
-
 <?php
-require 'config.php';
+require_once 'config.php';
 
 // Only administrators and managers can access reports
 roles(['admin', 'manager']);
